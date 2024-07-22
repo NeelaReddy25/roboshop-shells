@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source ./common.sh
+
+check_root
+
+dnf install golang -y &>>$LOGFILE
+VALIDATE $? "Installing golang"
+
+curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip &>>$LOGFILE
+VALIDATE $? "Downloading dispatch code"
+
+unzip /tmp/dispatch.zip &>>$LOGFILE
+VALIDATE $? "Extracting the dispatch code"
+
+go mod init dispatch &>>$LOGFILE
+VALIDATE $? "Init dispatching"
+
+go get &>>$LOGFILE
+VALIDATE $? "Get"
+
+go build &>>$LOGFILE
+VALIDATE $? "BUILD"
+
+cp /home/ec2-user/roboshop-shell/api-tier/dispatch.service /etc/systemd/system/dispatch.service &>>$LOGFILE
+VALIDATE $? "Copied dispatch service"
+
+systemctl enable dispatch &>>$LOGFILE
+VALIDATE $? "Enabling dispatch"
+
+systemctl start dispatch &>>$LOGFILE
+VALIDATE $? "Starting dispatch"
