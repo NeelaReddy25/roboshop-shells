@@ -53,9 +53,6 @@ VALIDATE $? "Creating app directory"
 cd /app 
 rm -rf /app/* 
 
-npm install &>>$LOGFILE
-VALIDATE $? "Installing nodejs dependencies"
-
 systemctl daemon-reload &>>$LOGFILE
 VALIDATE $? "Daemon Reload"
 

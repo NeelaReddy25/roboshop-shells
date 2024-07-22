@@ -13,6 +13,9 @@ VALIDATE $? "Extracting the catalogue code"
 cp /home/ec2-user/roboshop-shell/api-tier/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 VALIDATE $? "Copied catalogue service"
 
+npm install &>>$LOGFILE
+VALIDATE $? "Installing nodejs dependencies"
+
 systemctl enable catalogue &>>$LOGFILE
 VALIDATE $? "Enabling catalogue"
 

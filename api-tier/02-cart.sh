@@ -13,6 +13,9 @@ VALIDATE $? "Extracting the cart code"
 cp /home/ec2-user/roboshop-shell/api-tier/cart.service /etc/systemd/system/cart.service &>>$LOGFILE
 VALIDATE $? "Copied cart service"
 
+npm install &>>$LOGFILE
+VALIDATE $? "Installing nodejs dependencies"
+
 systemctl enable cart &>>$LOGFILE
 VALIDATE $? "Enabling cart"
 

@@ -7,13 +7,14 @@ check_root
 curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
 VALIDATE $? "Downloading user code"
 
-cd /app 
-rm -rf /app/*
 unzip /tmp/user.zip &>>$LOGFILE
 VALIDATE $? "Extracting the user code"
 
 cp /home/ec2-user/roboshop-shell/api-tier/user.service /etc/systemd/system/user.service &>>$LOGFILE
 VALIDATE $? "Copied user service"
+
+npm install &>>$LOGFILE
+VALIDATE $? "Installing nodejs dependencies"
 
 systemctl enable user &>>$LOGFILE
 VALIDATE $? "Enabling user"
