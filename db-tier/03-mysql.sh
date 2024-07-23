@@ -7,13 +7,7 @@ check_root
 echo "Please enter DB password:"
 read -s mysql_root_password
 
-dnf module disable mysql -y &>>$LOGFILE
-VALIDATE $? "disabling mysql"
-
-cp /home/centos/roboshop-shell/db-tier/mysql.repo /etc/yum.repos.d/mysql.repo &>>$LOGFILE
-VALIDATE $? "Setup MySQL repo"
-
-dnf install mysql-community-server -y &>>$LOGFILE
+dnf install mysql-server -y &>>$LOGFILE
 VALIDATE $? "Installing mysql community server"
 
 systemctl enable mysqld &>>$LOGFILE
