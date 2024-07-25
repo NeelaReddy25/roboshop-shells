@@ -1,5 +1,10 @@
 #!/bin/bash
 
-INSTANCE_ID="source ./create-ec2.sh"
+source ./create-ec2.sh
+instances=("mongodb" "redis" "web")
 
-aws ec2 terminate-instances --instance-ids "$INSTANCE_ID"
+for name ${instances[@]}; do 
+    echo "Creating instance for: $name
+    aws ec2 terminate-instances --instance-ids $instance_id
+done  
+
